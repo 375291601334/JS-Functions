@@ -1,0 +1,277 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+ 
+        <title>reveal.js</title>
+ 
+        <link rel="stylesheet" href="css/reveal.css">
+        <link rel="stylesheet" href="css/theme/black.css">
+ 
+        <!-- Theme used for syntax highlighting of code -->
+        <link rel="stylesheet" href="lib/css/zenburn.css">
+ 
+        <!-- Printing and PDF exports -->
+        <script>
+            var link = document.createElement( 'link' );
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+            document.getElementsByTagName( 'head' )[0].appendChild( link );
+        </script>
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+                <section>
+                    <h1>JS Functions</h1>
+                    <img src="https://www.popsci.com/sites/popsci.com/files/styles/655_1x_/public/images/2018/09/depositphotos_83822754_l-2015.jpg?itok=N9FDU9xO&fc=50,50">
+                </section>
+ 
+                <section>
+                    <p>A JavaScript <b class="fragment highlight-red">function</b> is a block of code designed to perform a particular task.</p>
+                </section>
+
+ 
+                <section>
+                    <h2>Function Declaration</h2>
+                    <pre><p><span class="fragment highlight-current-red">function</span> <span class="fragment highlight-current-red">showGreeting</span>(<span class="fragment highlight-current-red">name, age</span>) {
+<span class="fragment highlight-current-red">  alert("Hello! I’m"  + name + ", I’m " + age + ". Nice to meet you!");</span>
+};
+
+<span class="fragment highlight-current-red">showGreeting("Kitty", 5);</span> // <span class="fragment highlight-current-red">Hello! I'm Kitty, I'm 5. Nice to meet you!</span>
+</p></pre>
+				</section>
+ 
+                <section>
+                    <h2>Function starting with…</h2>
+                    <ul>
+                        <li>"get…" – return a value,</li>
+                        <li>"calc…" – calculate something,</li>
+                        <li>"create…" – create something,</li>
+                        <li>"check…" – check something and return a boolean,</li>
+                        <li>...</li>
+                    </ul>
+                </section>
+ 
+                <section>
+                    <h2>Examples of such names:</h2>
+                    <ul>
+                        <li>showMessage(..) <i>- shows a message</i></li>
+                        <li>getAge(..) <i>- returns the age (gets it somehow)</i></li>
+                        <li>calcSum(..) <i>- calculates and returns a sum</i></li>
+                        <li>createForm(..) <i>- creates a form</i></li>
+                        <li>checkPermission(..) <i>- checks a permission, returns true/false</i></li>
+                    </ul>
+                </section>
+ 
+                <section>
+                    <h2>Function Expression</h2>
+                    <pre><p>let <span class="fragment highlight-current-red">showGreeting =</span> <span class="fragment highlight-current-red">function (name, age) {
+  alert("Hello! I’m " + name + ", I’m " + age + ". Nice to meet you!");
+}</span></p>
+</pre>
+				</section>
+				
+				<section>
+					<p>showGreeting("Porgi",98);</p>
+					<img src="img/porgiGreeting.png">
+				</section>
+ 
+                <section>
+                    <h2>Named Function Expression</h2>
+                    <pre><p>let <span class="fragment highlight-current-red">showGreetingMessage</span> = function <span class="fragment highlight-current-red">showGreeting</span>(name, age) {
+  alert("Hello! I’m " + name + ", I’m " + age + ". Nice to meet you!");
+};
+
+<span class="fragment highlight-current-red">showGreetingMessage("Mrs Hamster", 25);</span> // <span class="fragment highlight-current-red">Hello! I'm Mrs Hamster, I'm 25. Nice to meet you!</span>
+</p></pre>
+				</section>
+
+                <section>
+					<h3>NFE</h3>
+					<pre><code>let showGreetingMessage = function internalGreeting(name, age) {
+  if (name) {
+    alert("Hello! I’m " + name + ", I’m " + age + ". Nice to meet you!");
+  } else  {
+    internalGreeting("anonymous", 0);
+  }
+};</code></pre>
+				</section>
+				
+				<section>
+					<pre><code>let sayHi = showGreetingMessage;
+showGreetingMessage = null;
+sayHi();</code></pre>
+					<img src="img/anonymousGreeting.png">
+				</section>
+ 
+                <section>
+					<h3>NFE</h3>
+					<pre><code>let showGreetingMessage = function(name, age) {
+  if (name) {
+    alert("Hello! I’m " + name + ", I’m " + age + ". Nice to meet you!");
+  } else  {
+    showGreetingMessage("anonymous", 0);
+  }
+};</code></pre>
+				</section>
+				
+				<section>
+					<pre><code>let sayHi = showGreetingMessage;
+showGreetingMessage = null;
+sayHi();</code></pre>
+					<img src="img/porgiError.png">
+				</section>
+ 
+                <section>
+                    <h3>local variables</h3>
+                    <pre><code>function showMessage() {
+  let food = "apples"; // local variable
+  alert( "I like " + food + "!"" );
+};</pre></code>
+				</section>
+  
+				<section>
+					<code>showMessage(); // I like apples</code>
+					<img src="img/porgiLoveApples.png">			
+				</section>
+
+				<section>
+					<code>alert( food ); //  Error! The variable is local to the</code> function
+					<img src="img/porgiErrorWithApples.png">             
+				</section>
+ 
+                <section>
+                        <h3>Outer variables</h3>
+                        <pre><code>let food = 'fish'; //outer variable
+ 
+function showMessage() {
+  alert(‘I like ’ + food +’!’);
+}
+ 
+showMessage(); // I like fish!</pre></code>
+                </section>
+ 
+ 
+                <section>
+                	<h3>Shadowing</h3>
+                    <pre><code>let food = "apples";
+ 
+function showMessage() {
+ let food = "fish"; // declare a local variable
+ alert(‘I like ’ + food +’!’);
+}
+ 
+// the function will create and use its own variable food
+showMessage(); // I like fish!
+ 
+alert( food ); // apples
+</pre></code>
+                </section>
+ 
+                <section>
+                    <h3>Shadowing</h3>
+                    <pre><code>function showGreeting(name, age) {
+  name = name + "the Great";
+  alert("Hello! I’m"  + name + ", I’m " + age + ". Nice to meet you!");
+};</pre></code>
+				</section>
+				
+				<section>
+					<pre><code>let name = "Porgi";
+showGreeting(name, 98);
+ 
+alert( name ); // Porgi</code></pre>
+					<img src="img/porgiTheGreat.png">
+				</section>
+
+							
+                <section>
+					<h3>Default values</h3>
+					<pre><code>function showGreeting(name, age) {
+  alert("Hello! I’m "  + name + ", I’m " + age + ". Nice to meet you!");
+};
+
+showGreeting("Kitty"); 
+// Hello! I’m Kitty, I’m UNDEFINED. Nice to meet you!
+</pre></code>
+                </section>
+ 
+                <section>
+					<h3>Default values</h3>
+					<pre><code>function showGreeting(name, age = 18) {
+  alert("Hello! I’m "  + name + ", I’m " + age + ". Nice to meet you!");
+};
+
+showGreeting("Kitty"); // Hello! I’m Kitty, I’m 18. Nice to meet you!
+</pre></code>
+                </section>
+ 
+                <section>
+					<h3>Returning a value</h3>
+                    <pre><code>function sum(a, b) {
+  return a + b;
+};</code></pre>
+				</section>
+				
+				<section>
+					<pre><code>let result = sum(1, 2);
+alert( result ); // 3</code></pre>
+<img src="img/porgiMath.png">
+				</section>
+ 
+                <section>
+					<h3>Returning a value</h3>
+                    <pre><code>let c = 0;
+function sum(a, b) {
+ c = a + b;
+};
+ 
+let result = sum(1, 2); //undefined
+alert( c ); // 3</code></pre>
+				</section>
+				
+
+				<section>
+					<h3>Additional literature:</h3>
+						<ul>
+							<li><a href="https://javascript.info/function-basics">javascript.info</a></li>
+							<li><a href="https://www.w3schools.com/js/js_function_definition.asp">w3schools.com</a></li>
+							<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Functions">MDN</a></li>
+							<li><a href="https://codeburst.io/javascript-functions-understanding-the-basics-207dbf42ed99">JavaScript Functions — Understanding The Basics</a></li>
+							<li><a href="https://codeburst.io/all-about-javascript-functions-in-1-article-49bfd94b31ab">All about JavaScript functions in 1 article</a></li>
+						</ul>
+				</section>
+
+				<section>
+					<h3>Thank you for attention!</h3>
+					<img src="img/goodby.png">
+				</section>
+                        
+            </div>
+        </div>
+ 
+        <script src="lib/js/head.min.js"></script>
+        <script src="js/reveal.js"></script>
+ 
+        <script>
+            Reveal.initialize({
+                dependencies: [
+                    { src: 'plugin/markdown/marked.js' },
+                    { src: 'plugin/markdown/markdown.js' },
+                    { src: 'plugin/notes/notes.js', async: true },
+                    { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+                ]
+            });
+        </script>
+    </body>
+</html>
+ 
+ 
+ 
+
+
+
+ 
